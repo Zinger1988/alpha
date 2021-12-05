@@ -1,0 +1,24 @@
+html, body{
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.page{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &__header{
+    flex: 0 0 auto;
+  }
+
+  &__main{
+    flex: 1 1 auto;
+  }
+
+  &__footer{
+    flex: 0 0 auto;
+  }
+}
