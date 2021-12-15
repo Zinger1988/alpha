@@ -1,0 +1,132 @@
+@font-face {
+  font-family: 'icomoon';
+  src:
+          url('../../fonts/icomoon.ttf?szr32u') format('truetype'),
+          url('../../fonts/icomoon.woff?szr32u') format('woff'),
+          url('../../fonts/icomoon.svg?szr32u#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 1.6rem;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &--xs{
+    font-size: 1.6rem;
+  }
+
+  &--sm{
+    font-size: 2rem;
+  }
+
+  &--md{
+    font-size: 2.4rem;
+  }
+
+  &--lg{
+    font-size: 2.8rem;
+  }
+
+  &--xl{
+    font-size: 3.6rem;
+  }
+
+  &--xxl{
+    font-size: 4.4rem;
+  }
+}
+
+.icon--arrow-down:before {
+  content: "\e900";
+}
+.icon--arrow-left:before {
+  content: "\e901";
+}
+.icon--arrow-right:before {
+  content: "\e902";
+}
+.icon--arrow-up:before {
+  content: "\e903";
+}
+.icon--chat:before {
+  content: "\e904";
+}
+.icon--check:before {
+  content: "\e905";
+}
+.icon--close:before {
+  content: "\e906";
+}
+.icon--close-square:before {
+  content: "\e907";
+}
+.icon--download:before {
+  content: "\e908";
+}
+.icon--expand:before {
+  content: "\e909";
+}
+.icon--filter:before {
+  content: "\e90a";
+}
+.icon--folder:before {
+  content: "\e90b";
+}
+.icon--forbidden:before {
+  content: "\e90c";
+}
+.icon--help-circle:before {
+  content: "\e90d";
+}
+.icon--help-sqaure:before {
+  content: "\e90e";
+}
+.icon--hide:before {
+  content: "\e90f";
+}
+.icon--info-square:before {
+  content: "\e910";
+}
+.icon--layout-no-sidebar:before {
+  content: "\e911";
+}
+.icon--layout-sidebar:before {
+  content: "\e912";
+}
+.icon--notification:before {
+  content: "\e913";
+}
+.icon--roll-up:before {
+  content: "\e914";
+}
+.icon--search:before {
+  content: "\e915";
+}
+.icon--setting:before {
+  content: "\e916";
+}
+.icon--show:before {
+  content: "\e917";
+}
+.icon--text:before {
+  content: "\e918";
+}
+.icon--tree:before {
+  content: "\e919";
+}
+.icon--upload:before {
+  content: "\e91a";
+}

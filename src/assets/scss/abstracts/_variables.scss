@@ -1,0 +1,66 @@
+/*#region Colors ----------------------------------------------- */
+
+// Base colors
+
+$white: #ffffff;
+$black: #131215;
+
+$primary: #4B6FEE;
+$primaryLighten: #7F99F5;
+$primaryGradient: linear-gradient(90deg, rgba(88,71,193,1) 0%, rgba(47,134,183,1) 100%);
+
+$accent: #F54B88;
+$accentDarken: #E06591;
+$accentGradient: linear-gradient(90deg, rgba(160,80,198,1) 0%, rgba(191,82,82,1) 100%);
+
+$warning: #FFEF5C;
+$success: #5DDA9E;
+
+// Content
+
+$contentHeadBg: #3A3A3A;
+$contentBodyBg: #1E1E1E;
+$contentBodyLightenBg: #232323;
+
+// Context menu
+
+$contextMenuBg: #474747;
+$contextMenuBorder: #515151;
+
+// Table
+
+$tableHeadBg: #3A3A3A;
+
+// Window
+
+$windowHeadBgDefault: #161616;
+$windowBg: #0D0D0D;
+$windowDottedBorder: #424242;
+$windowSolidBorder: #2B2B2B;
+$windowControlsBtn: #232323;
+
+/*#endregion Colors -------------------------------------------- */
+
+/*#region Layers ----------------------------------------------- */
+
+$windowZIndex: 1000;
+$windowZIndexActive: 1001;
+$contextMenuZIndex: 1002;
+
+/*#endregion Layers -------------------------------------------- */
+
+/*#region Base ------------------------------------------------- */
+
+// Default html and body font-size for the base rem value.
+$rem-base: 62.5%; // 16px * .625 ~= 10px
+
+// Body
+
+$base-text-color: $white;
+$base-background-color: $contentBodyBg;
+$base-font-size: 1.4rem;
+$base-line-height: 1.4;
+$base-font-family: 'Roboto', 'Arial', sans-serif;
+
+/*#endregion Base ---------------------------------------------- */
+

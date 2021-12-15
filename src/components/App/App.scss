@@ -9,6 +9,7 @@ html, body{
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background: url("../../assets/img/workspace-bg.jpg") no-repeat center / cover;
 
   &__header{
     flex: 0 0 auto;
@@ -16,6 +17,7 @@ html, body{
 
   &__main{
     flex: 1 1 auto;
+    position: relative;
   }
 
   &__footer{

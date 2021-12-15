@@ -2,27 +2,32 @@ import "./Taskbar.scss";
 import {connect} from "react-redux";
 import {closeWindow, setActiveWindow} from "../../actions/windowsActions";
 
+import './Taskbar.scss';
+
 const Taskbar = (props) => {
 
     const {windows, setActiveWindow, closeWindow} = props;
 
     return (
-        <ul className="taskbar">
+        <div className={`taskbar ${props.className || ""}`}>
             {windows.map(item => {
                 return (
-                    <button key={item.id} className="taskbar__btn" onClick={() => setActiveWindow(item.id)}>
-                        <span className="taskbar__btn-text">{item.title}</span>
-                        <span onClick={() => closeWindow(item.id)} className="taskbar__btn-close">🞫</span>
-                    </button>
+                    <div key={item.id} className={`taskbar__item ${item.isActive && 'taskbar__item--active'}`}>
+                        <button className="taskbar__btn" onClick={() => setActiveWindow(item.id)}>
+                            <i className="icon icon-xs icon--folder taskbar__btn-icon"></i>
+                            <span className="taskbar__btn-title">{item.title}</span>
+                        </button>
+                        <i onClick={() => closeWindow(item.id)} className="icon icon-xs icon--close taskbar__close"></i>
+                    </div>
                 )
             })}
-        </ul>
+        </div>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        windows: state.windows
+        windows: state.windows.collection
     }
 }
 

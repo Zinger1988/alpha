@@ -1,11 +1,31 @@
+@import "../../assets/scss/abstracts/abstracts";
+
 .window{
-  border-radius: 6px;
-  background-color: white;
-  box-shadow: 0 4px 14px rgba(0,0,0,.15);
-  z-index: 1000;
+  border-radius: 1rem;
+  background-color: rgba($windowBg, .9);
+  box-shadow: 0 .4rem 1.4rem rgba($black,.15);
+  backdrop-filter: blur(10px);
+  min-width: 28rem;
+  z-index: $windowZIndex;
+  -webkit-font-smoothing: antialiased;
+
+  $this: &;
+
+  &--expanded{
+    border-radius: 0;
+    @include animate(width height transform);
+
+    #{$this}__head{
+      border-radius: 0;
+    }
+  }
 
   &--active{
-    z-index: 1001;
+    z-index: $windowZIndexActive;
+
+    #{$this}__head{
+      background-color: $contentHeadBg;
+    }
   }
 
   &__holder{
@@ -17,16 +37,48 @@
   &__head{
     display: flex;
     align-items: center;
-    background-color: black;
-    border-radius: 6px 6px 0 0;
-    padding: 10px;
-    color: white;
+    border-radius: 1rem 1rem 0 0;
+    padding: .8rem 1.6rem .8rem 2.4rem;
+    color: $white;
+    background-color: $windowHeadBgDefault;
+  }
+
+  &__controls{
+    display: flex;
+    align-items: center;
+  }
+
+  &__controls-btn{
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0 .8rem;
+    background-color: $windowControlsBtn;
+    color: $white;
+    cursor: pointer;
+
+    @extend %buttonreset;
+    @include animate(background-color);
+
+    &:hover{
+      background-color: darken($windowControlsBtn, 10%);
+    }
+
+    &--close:hover{
+      background-color: $accent;
+    }
   }
 
   &__title{
-    flex: 1 0 auto;
+    flex: 1 1 auto;
     font-weight: 700;
-    padding: 0 20px 0 0;
+    padding: 0 2rem 0 0;
+    font-size: 1.3rem;
+    @extend %textEllipsis;
+    min-width: 0;
   }
 
   &__main{
@@ -36,11 +88,13 @@
   }
 
   &__aside{
-    flex: 0 1 250px;
-    border-right: 1px solid black;
+    flex: 0 1 25rem;
+    border-right: .1rem solid black;
   }
 
-  &__body{
+  &__content{
+    position: relative;
     flex: 1 1 auto;
+    padding: 2.4rem;
   }
 }

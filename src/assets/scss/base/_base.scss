@@ -1,0 +1,27 @@
+@import "fonts";
+@import "forms";
+
+html {
+  font-size: $rem-base;
+  font-family: $base-font-family;
+  line-height: $base-line-height;
+  color: $base-text-color;
+  background-color: $base-background-color;
+  height: 100%;
+}
+
+body {
+  font-size: $base-font-size;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing: border-box;
+}
+
+.container{
+  padding: 0 4rem;
+}

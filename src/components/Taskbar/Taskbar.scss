@@ -1,0 +1,72 @@
+@import "../../assets/scss/abstracts/abstracts";
+
+.taskbar{
+  display: flex;
+  align-items: center;
+  @include descending-z-index(30);
+  min-width: 0;
+  margin: 0 2rem 0 0;
+
+  $this: &;
+
+  &__item{
+    position: relative;
+    margin: 0 .8rem 0 0;
+    flex: 0 1 auto;
+    min-width: 0;
+
+    &:hover{
+      #{$this}__close{
+        transform: translate(50%, -50%) scale(1);
+      }
+
+      #{$this}__btn{
+        background-color: rgba($white, .3);
+      }
+    }
+  }
+
+  &__btn{
+    @extend %buttonreset;
+    max-width: 20rem;
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    color: $white;
+    padding: .8rem 1.2rem;
+    background-color: rgba($white, .1);
+    border-radius: .4rem;
+    position: relative;
+    cursor: pointer;
+    @include animate(background-color);
+  }
+
+  &__btn-icon{
+    margin: 0 .8rem 0 0;
+  }
+
+  &__btn-title{
+    font-size: 1.3rem;
+    @extend %textEllipsis;
+  }
+
+  &__close{
+    position: absolute;
+    width: 2.6rem;
+    height: 2.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    transform: translate(50%, -50%) scale(0);
+    background-color: #0D0D0D;
+    cursor: pointer;
+    @include animate(background-color transform);
+
+    &:hover{
+      background-color: $accent;
+    }
+  }
+}

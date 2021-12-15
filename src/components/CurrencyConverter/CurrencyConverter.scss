@@ -1,0 +1,83 @@
+@import "../../assets/scss/abstracts/abstracts";
+
+.currencyConverter{
+  display: flex;
+  align-items: center;
+
+  &__base{
+    display: flex;
+    align-items: center;
+    margin: 0 1.5rem 0 0;
+    position: relative;
+  }
+
+  &__base-input{
+    @extend %textEllipsis;
+    width: 10rem;
+    font-size: 1.4rem;
+    line-height: 1.428;
+    padding: .6rem 5rem .6rem 1.2rem;
+    border-radius: .3rem;
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    box-shadow: inset 0 0 0 1px rgba($white, .1);
+    outline: none;
+    -moz-appearance: textfield;
+    @include animate(box-shadow);
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &:focus{
+      box-shadow: inset 0 0 0 1px rgba($white, .3);
+    }
+  }
+
+  &__base-cc{
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 500;
+  }
+
+  &__currencies{
+    display: flex;
+    align-items: center;
+  }
+
+  &__currencies-item{
+    font-size: 1.4rem;
+    margin: 0 1.5rem 0 0;
+    padding: 0 1.5rem 0 0;
+    border-right: 1px solid rgba($white, .1);
+
+    &:last-child{
+      margin: 0 .5rem 0 0;
+      border: none;
+    }
+  }
+
+  &__currencies-val{
+    margin: 0 .25em 0 0;
+  }
+
+  &__currencies-cc{
+    font-weight: 500;
+  }
+
+  &__settings{
+    @extend %buttonreset;
+    cursor: pointer;
+    color: $white;
+    @include animate(color);
+
+    &:hover{
+      color: $accent;
+    }
+  }
+}
