@@ -4,19 +4,26 @@ import {windowsOperations, windowsSelectors} from "../../redux/window";
 import './Taskbar.scss';
 
 const Taskbar = (props) => {
-    const windows = useSelector(windowsSelectors.collectionSelector);
     const dispatch = useDispatch();
+    const windowsSelector = useSelector(windowsSelectors.collectionSelector);
+    const focusSelector = useSelector(windowsSelectors.focusSelector);
+
+    const setFocus = (id) => dispatch(windowsOperations.setFocus(id));
+    const closeWindow = (id) => dispatch(windowsOperations.closeWindow(id));
 
     return (
         <div className={`taskbar ${props.className || ""}`}>
-            {windows.map(item => {
+            {windowsSelector.map(item => {
+
+                const isFocused = focusSelector === item.id;
+
                 return (
-                    <div key={item.id} className={`taskbar__item ${item.focused && 'taskbar__item--active'}`}>
-                        <button className="taskbar__btn" onClick={() => dispatch(windowsOperations.setFocus(item.id))}>
+                    <div key={item.id} className={`taskbar__item ${isFocused && 'taskbar__item--active'}`}>
+                        <button className="taskbar__btn" onClick={() => setFocus(item.id)}>
                             <i className="icon icon-xs icon--folder taskbar__btn-icon"></i>
                             <span className="taskbar__btn-title">{item.title}</span>
                         </button>
-                        {/*<i onClick={() => closeWindow(item.id)} className="icon icon-xs icon--close taskbar__close"></i>*/}
+                        <i onClick={() => closeWindow(item.id)} className="icon icon-xs icon--close taskbar__close"></i>
                     </div>
                 )
             })}

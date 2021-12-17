@@ -2,12 +2,12 @@ import './App.scss';
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Window from "../Window/Window";
-import {connect, useDispatch} from "react-redux";
-import { windowsOperations } from "../../redux/window";
+import {connect, useDispatch, useSelector} from "react-redux";
+import {windowsOperations, windowsSelectors} from "../../redux/window";
 
 function App(props) {
-    const {windows} = props;
 
+    const windowSelector = useSelector(windowsSelectors.collectionSelector);
     const dispatch = useDispatch();
 
     return (
@@ -19,17 +19,11 @@ function App(props) {
                     <button onClick={() => dispatch(windowsOperations.createWindow({id: 2, title: 'Window 2'}))}>Open window 2</button>
                     <button onClick={() => dispatch(windowsOperations.createWindow({id: 3, title: 'Window 3'}))}>Open window 3</button>
                 </div>
-                {windows.map(item => !item.isClosed && <Window key={item.id} id={item.id} title={item.title} focused={item.focused} type={item.type}/>)}
+                {windowSelector.map(item => <Window key={item.id} id={item.id} title={item.title} focus={item.focus} type={item.type}/>)}
             </main>
             <Footer/>
         </div>
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        windows: state.windows.collection
-    }
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

@@ -1,7 +1,9 @@
-const historySelector = state => state.windows.history;
-const collectionSelector = state => state.windows.collection;
+const stashSelector = state => state.windows.stash.collection;
+const collectionSelector = state => state.windows.current.collection;
+const focusSelector = state => state.windows.current.focus;
 
 export default {
-    historySelector,
-    collectionSelector
+    stashSelector,
+    collectionSelector,
+    focusSelector
 }

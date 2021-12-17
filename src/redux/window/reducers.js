@@ -1,42 +1,59 @@
 import types from "./types";
+import {combineReducers} from "redux";
 
-const initialState = {
+const currentInitialState = {
     collection: [],
-    history: []
+    focus: null,
 }
 
-const reducer = (state = initialState, action) => {
+const stashInitialState = {
+    collection: [],
+    focus: []
+}
+
+const currentReducer = (state = currentInitialState, action) => {
     switch (action.type) {
 
         case types.CREATE_WINDOW:
             return {...state, collection: [...state.collection, action.payload]}
 
         case types.FOCUS_WINDOW: {
-            const focused = state.collection.map(item => {
-                item.id === action.payload
-                    ? item.focused = true
-                    : item.focused = false;
-                return item;
-            });
-            return {...state, collection: focused };
+            return {...state, focus: action.payload};
         }
 
         case types.CLOSE_WINDOW:
             return {...state, collection: state.collection.filter(item => item.id !== action.payload)}
 
-        case types.UPDATE_WINDOWS:
-            return {...state, collection: action.payload}
+        default:
+            return state;
+    }
+}
 
-        case types.HISTORY_ADD:
-            return {...state, history: [...state.history, action.payload]}
+const stashReducer = (state = stashInitialState, action) => {
+    switch (action.type) {
 
-        case types.HISTORY_UPDATE:
-            const index = state.history.findIndex(item => item.id === action.payload.id)
-            return {...state, history: [...state.history.slice(0, index), action.payload, ...state.history.slice(index + 1)]}
+        case types.STASH_FOCUS_ADD:
+            return {...state, focus: [...state.focus, action.payload]}
+
+        case types.STASH_FOCUS_REMOVE:
+            const newFocus = state.focus.filter((item, i, arr) => arr.indexOf(item) === i && item !== action.payload)
+            return {...state, focus: newFocus}
+
+        case types.STASH_COLLECTION_ADD:
+            return {...state, collection: [...state.collection, action.payload]}
+
+        case types.STASH_COLLECTION_UPDATE:
+            const index = state.collection.findIndex(item => item.id === action.payload.id)
+            return {...state, collection: [...state.collection.slice(0, index), action.payload, ...state.collection.slice(index + 1)]}
 
         default:
             return state;
     }
 }
+
+const reducer = combineReducers({
+    current: currentReducer,
+    stash: stashReducer
+})
 
 export default reducer

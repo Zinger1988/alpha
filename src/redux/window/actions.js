@@ -5,11 +5,6 @@ const createWindowAction = (settings) => ({
     payload: settings
 });
 
-const updateWindowsAction = (windowsArr) => ({
-    type: types.UPDATE_WINDOWS,
-    payload: windowsArr
-});
-
 const focusWindowAction = (id) => ({
     type: types.FOCUS_WINDOW,
     payload: id
@@ -20,21 +15,32 @@ const closeWindowAction = (id) => ({
     payload: id
 });
 
-const historyAddAction = (config) => ({
-    type: types.HISTORY_ADD,
+const stashCollectionAddAction = (config) => ({
+    type: types.STASH_COLLECTION_ADD,
     payload: config
-})
+});
 
-const historyUpdateAction = (config) => ({
-    type: types.HISTORY_UPDATE,
+const stashCollectionUpdateAction = (config) => ({
+    type: types.STASH_COLLECTION_UPDATE,
     payload: config
-})
+});
+
+const stashFocusAddAction = (id) => ({
+    type: types.STASH_FOCUS_ADD,
+    payload: id
+});
+
+const stashFocusRemoveAction = (id) => ({
+    type: types.STASH_FOCUS_REMOVE,
+    payload: id
+});
 
 export default {
     createWindowAction,
     focusWindowAction,
     closeWindowAction,
-    updateWindowsAction,
-    historyAddAction,
-    historyUpdateAction
+    stashCollectionAddAction,
+    stashCollectionUpdateAction,
+    stashFocusAddAction,
+    stashFocusRemoveAction
 };

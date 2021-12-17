@@ -1,6 +1,7 @@
-import {useState, useRef, useEffect} from "react";
+import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleContextMenu, WINDOW_CONTEXT_ID, WindowContextMenu } from "../ContextMenu/ContextMenu";
+import PropTypes from 'prop-types';
 import { Rnd } from "react-rnd";
 import { windowsOperations } from "../../redux/window";
 import { windowsSelectors } from "../../redux/window";
@@ -10,12 +11,16 @@ import "./Window.scss";
 
 const Window = (props) => {
 
-    const {id, title, type = 'plain', focused} = props;
-    const dispatch = useDispatch();  
+    const {id, title, type, expanded} = props;
+    const dispatch = useDispatch();
 
-    const historySelector = useSelector(windowsSelectors.historySelector);
-    const config = historySelector.find(item => item.id === id) || windowConfig['default'];
+    const focusSelector = useSelector(windowsSelectors.focusSelector);
+    const stashSelector = useSelector(windowsSelectors.stashSelector);
+
+    const config = stashSelector.find(item => item.id === id) || windowConfig['default'];
     let refRnd = useRef();
+
+    const isFocused = focusSelector === id;
 
     useEffect(() => {
         if(config.expanded){
@@ -26,11 +31,11 @@ const Window = (props) => {
 
     const expandWindow = () => {
         if(!config.expanded){
-            dispatch(windowsOperations.setWindowsHistory({id: id, ...config, expanded: true}))
+            dispatch(windowsOperations.setStashCollection({id: id, ...config, expanded: true}))
         } else {
             refRnd.updateSize({ width: config.width, height: config.height });
             refRnd.updatePosition({ x: config.x, y: config.y });
-            dispatch(windowsOperations.setWindowsHistory({id: id, ...config, expanded: false}))
+            dispatch(windowsOperations.setStashCollection({id: id, ...config, expanded: false}))
         }
     }
 
@@ -45,7 +50,7 @@ const Window = (props) => {
         }
 
         if(!config.expanded){
-            dispatch(windowsOperations.setWindowsHistory({id: id, expanded: config.expanded, ...lastConfig}))
+            dispatch(windowsOperations.setStashCollection({id: id, expanded: config.expanded, ...lastConfig}))
         }
 
         dispatch(windowsOperations.closeWindow(id));
@@ -53,7 +58,7 @@ const Window = (props) => {
 
     const handleResizeStart = () => {
         if(config.expanded) {
-            dispatch(windowsOperations.setWindowsHistory({id: id, ...config, expanded: false}))
+            dispatch(windowsOperations.setStashCollection({id: id, ...config, expanded: false}))
         }
     }
 
@@ -63,11 +68,11 @@ const Window = (props) => {
                  bounds='parent'
                  default={config}
                  ref={c => refRnd = c}
-                 cancel=".window__body"
+                 cancel=".window__main"
                  onMouseDown={() => dispatch(windowsOperations.setFocus(id))}
                  onResizeStart={handleResizeStart}
                  onContextMenu={() => dispatch(windowsOperations.setFocus(id))}
-                 className={`window ${focused && 'window--active'} ${config.expanded && 'window--expanded'}`}>
+                 className={`window ${isFocused && 'window--active'} ${config.expanded && 'window--expanded'}`}>
                 <div className="window__holder">
                     <div className="window__head" onDoubleClick={expandWindow}>
                         <div className="window__title">
@@ -105,6 +110,18 @@ const Window = (props) => {
             <WindowContextMenu />
         </>
     )
-}
+};
+
+Window.propTypes = {
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    expanded: PropTypes.bool
+};
+
+Window.defaultProps = {
+    type: "plain",
+    expanded: false
+};
 
 export default Window;
