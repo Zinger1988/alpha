@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { windowsReducer } from "./windowsReducer";
+import { default as windowsReducer} from "./window/index";
 
 export const rootReducer = combineReducers({
     windows: windowsReducer,

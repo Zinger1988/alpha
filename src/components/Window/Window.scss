@@ -2,7 +2,7 @@
 
 .window{
   border-radius: 1rem;
-  background-color: rgba($windowBg, .9);
+  background-color: rgba(lighten($windowBg, 5%), .9);
   box-shadow: 0 .4rem 1.4rem rgba($black,.15);
   backdrop-filter: blur(10px);
   min-width: 28rem;
@@ -13,7 +13,6 @@
 
   &--expanded{
     border-radius: 0;
-    @include animate(width height transform);
 
     #{$this}__head{
       border-radius: 0;
@@ -22,6 +21,7 @@
 
   &--active{
     z-index: $windowZIndexActive;
+    background-color: rgba($windowBg, .9);
 
     #{$this}__head{
       background-color: $contentHeadBg;

@@ -1,55 +1,75 @@
+import {useState, useRef, useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { handleContextMenu, WINDOW_CONTEXT_ID, WindowContextMenu } from "../ContextMenu/ContextMenu";
+import { Rnd } from "react-rnd";
+import { windowsOperations } from "../../redux/window";
+import { windowsSelectors } from "../../redux/window";
+import windowConfig from "../../constants/window";
+
 import "./Window.scss";
-import React, {useState} from "react";
-import {Rnd} from "react-rnd";
-import { connect } from "react-redux";
-import { setActiveWindow, closeWindow, savePosition } from "../../actions/windowsActions";
-import {handleContextMenu, WINDOW_CONTEXT_ID, WindowContextMenu} from "../ContextMenu/ContextMenu";
-import {useRef} from "react";
 
 const Window = (props) => {
 
-    const {id, title, type = 'plain', setActiveWindow, closeWindow, isActive, savePosition, config} = props;
+    const {id, title, type = 'plain', focused} = props;
+    const dispatch = useDispatch();  
 
-    const [expanded, setExpanded] = useState(false)
-
-    const defaultPosition = {
-        x: window.innerWidth / 2 - 300,
-        y: window.innerHeight / 2 - 200
-    }
-
-    const size = {
-        width: 600,
-        height: 400
-    }
-
-    const position = config.find(item => item.id === id) || defaultPosition
-
-    const onDragStop = (e, d) => savePosition({id, x: d.x, y: d.y});
-    const onResizeStart = (e, d) => {
-        setExpanded(false);
-    };
-
+    const historySelector = useSelector(windowsSelectors.historySelector);
+    const config = historySelector.find(item => item.id === id) || windowConfig['default'];
     let refRnd = useRef();
 
-    const expand = () => {
-        refRnd.updateSize({ width: '100%', height: '100%' });
-        refRnd.updatePosition({ x: 0, y: 0 });
-        setExpanded(true);
+    useEffect(() => {
+        if(config.expanded){
+            refRnd.updateSize({ width: '100%', height: '100%' });
+            refRnd.updatePosition({ x: 0, y: 0 });
+        }
+    }, [config.expanded])
+
+    const expandWindow = () => {
+        if(!config.expanded){
+            dispatch(windowsOperations.setWindowsHistory({id: id, ...config, expanded: true}))
+        } else {
+            refRnd.updateSize({ width: config.width, height: config.height });
+            refRnd.updatePosition({ x: config.x, y: config.y });
+            dispatch(windowsOperations.setWindowsHistory({id: id, ...config, expanded: false}))
+        }
+    }
+
+    const closeWindow = (e) => {
+        e.stopPropagation();
+
+        const lastConfig = {
+            x: refRnd.originalPosition.x,
+            y: refRnd.originalPosition.y,
+            width: refRnd.resizable.state.width,
+            height: refRnd.resizable.state.height,
+        }
+
+        if(!config.expanded){
+            dispatch(windowsOperations.setWindowsHistory({id: id, expanded: config.expanded, ...lastConfig}))
+        }
+
+        dispatch(windowsOperations.closeWindow(id));
+    }
+
+    const handleResizeStart = () => {
+        if(config.expanded) {
+            dispatch(windowsOperations.setWindowsHistory({id: id, ...config, expanded: false}))
+        }
     }
 
     return (
         <>
-            <Rnd className={`window ${isActive && 'window--active'} ${expanded && 'window--expanded'}`} id={id}
+            <Rnd id={id}
+                 bounds='parent'
+                 default={config}
                  ref={c => refRnd = c}
                  cancel=".window__body"
-                 onClick={() => setActiveWindow(id)}
-                 onContextMenu={() => setActiveWindow(id)}
-                 bounds='parent'
-                 onDragStop={onDragStop}
-                 onResizeStart={onResizeStart}
-                 default={{...position, ...size}}>
+                 onMouseDown={() => dispatch(windowsOperations.setFocus(id))}
+                 onResizeStart={handleResizeStart}
+                 onContextMenu={() => dispatch(windowsOperations.setFocus(id))}
+                 className={`window ${focused && 'window--active'} ${config.expanded && 'window--expanded'}`}>
                 <div className="window__holder">
-                    <div className="window__head" onDoubleClick={() => expand()}>
+                    <div className="window__head" onDoubleClick={expandWindow}>
                         <div className="window__title">
                             {title}
                         </div>
@@ -57,10 +77,10 @@ const Window = (props) => {
                             <button className="window__controls-btn window__controls-btn--roll-up">
                                 <i className="icon icon--xs icon--roll-up"></i>
                             </button>
-                            <button className="window__controls-btn window__controls-btn--expand" onClick={() => expand()}>
+                            <button className="window__controls-btn window__controls-btn--expand" onClick={expandWindow}>
                                 <i className="icon icon--xs icon--expand"></i>
                             </button>
-                            <button className="window__controls-btn window__controls-btn--close" onClick={() => closeWindow(id)}>
+                            <button className="window__controls-btn window__controls-btn--close" onClick={closeWindow}>
                                 <i className="icon icon--xs icon--close"></i>
                             </button>
                         </div>
@@ -87,18 +107,4 @@ const Window = (props) => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        config: state.windows.config
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        setActiveWindow: id => dispatch(setActiveWindow(id)),
-        closeWindow: id => dispatch(closeWindow(id)),
-        savePosition: coords => dispatch(savePosition(coords)),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Window)
+export default Window;

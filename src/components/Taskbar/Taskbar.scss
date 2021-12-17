@@ -24,6 +24,12 @@
         background-color: rgba($white, .3);
       }
     }
+
+    &--active{
+      #{$this}__btn{
+        background-color: rgba($white, .3);
+      }
+    }
   }
 
   &__btn{
