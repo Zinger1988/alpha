@@ -15,9 +15,13 @@ const CurrencyConverter = (props) => {
 
     useEffect(() => fetchData(), []);
 
+    const getZero = (int) => {
+        return int <= 9 ? `0${int}` : int;
+    }
+
     const fetchData = async () => {
         const date = new Date();
-        const requestDate = `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+        const requestDate = `${date.getFullYear()}${getZero(date.getMonth() + 1)}${getZero(date.getDate())}`;
 
         await fetch(`https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=${requestDate}&json`)
             .then(res => res.json())

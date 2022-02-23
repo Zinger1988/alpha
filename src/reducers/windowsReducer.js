@@ -1,4 +1,4 @@
-import { ADD_WINDOW, SET_ACTIVE_WINDOW, CLOSE_WINDOW, SAVE_POSITION} from '../actions/windowsActions';
+import { ADD_WINDOW, SET_ACTIVE_WINDOW, COLLECTION_REMOVE, SAVE_POSITION} from '../actions/windowsActions';
 
 const initialState = {
     collection: [],
@@ -32,7 +32,7 @@ export function windowsReducer(state = initialState, action) {
             })
             return {...state, collection:[...updatedActivity]}
 
-        case CLOSE_WINDOW:
+        case COLLECTION_REMOVE:
             const updatedWindows = [...state.collection.filter((item, i) => {
                 return item.id !== action.payload
             })]

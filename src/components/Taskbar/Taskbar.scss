@@ -30,6 +30,13 @@
         background-color: rgba($white, .3);
       }
     }
+
+    &--minimized{
+      #{$this}__btn{
+        background-color: transparent;
+        box-shadow: inset 0 0 0 1px rgba($white, .15);
+      }
+    }
   }
 
   &__btn{

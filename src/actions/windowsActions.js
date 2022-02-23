@@ -1,6 +1,6 @@
 export const ADD_WINDOW = 'ADD_WINDOW';
 export const SET_ACTIVE_WINDOW = 'SET_ACTIVE_WINDOW';
-export const CLOSE_WINDOW = 'CLOSE_WINDOW';
+export const COLLECTION_REMOVE = 'COLLECTION_REMOVE';
 export const SAVE_POSITION = 'SAVE_POSITION';
 
 export function addWindow(id, title, type) {
@@ -19,7 +19,7 @@ export function setActiveWindow(id) {
 
 export function closeWindow(id) {
     return {
-        type: CLOSE_WINDOW,
+        type: COLLECTION_REMOVE,
         payload: id
     }
 }

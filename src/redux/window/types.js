@@ -1,17 +1,19 @@
-export const CREATE_WINDOW = 'app/window/CREATE';
-export const FOCUS_WINDOW = 'app/window/FOCUS_WINDOW';
-export const CLOSE_WINDOW = 'app/window/CLOSE';
-export const STASH_COLLECTION_ADD = 'app/window/STASH_COLLECTION_ADD';
-export const STASH_COLLECTION_UPDATE = 'app/window/STASH_COLLECTION_UPDATE';
-export const STASH_FOCUS_ADD = 'app/window/STASH_FOCUS_ADD';
-export const STASH_FOCUS_REMOVE = 'app/window/STASH_FOCUS_REMOVE';
+export const COLLECTION_ADD = 'app/window/COLLECTION_ADD';
+export const CURRENT_FOCUS_SET = 'app/window/CURRENT_FOCUS_SET';
+export const COLLECTION_REMOVE = 'app/window/COLLECTION_REMOVE';
+export const STASH_ADD = 'app/window/STASH_ADD';
+export const STASH_UPDATE = 'app/window/STASH_UPDATE';
+export const FOCUS_HISTORY_ADD = 'app/window/FOCUS_HISTORY_ADD';
+export const FOCUS_HISTORY_REMOVE = 'app/window/FOCUS_HISTORY_REMOVE';
+export const COLLECTION_UPDATE = 'app/window/COLLECTION_UPDATE';
 
 export default {
-    CREATE_WINDOW,
-    FOCUS_WINDOW,
-    CLOSE_WINDOW,
-    STASH_COLLECTION_ADD,
-    STASH_COLLECTION_UPDATE,
-    STASH_FOCUS_ADD,
-    STASH_FOCUS_REMOVE
+    COLLECTION_ADD,
+    CURRENT_FOCUS_SET,
+    COLLECTION_REMOVE,
+    STASH_ADD,
+    STASH_UPDATE,
+    FOCUS_HISTORY_ADD,
+    FOCUS_HISTORY_REMOVE,
+    COLLECTION_UPDATE
 }

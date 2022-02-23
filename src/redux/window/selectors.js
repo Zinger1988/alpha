@@ -1,9 +1,9 @@
-const stashSelector = state => state.windows.stash.collection;
-const collectionSelector = state => state.windows.current.collection;
-const focusSelector = state => state.windows.current.focus;
+const collectionSelector = state => state.windows.collection;
+const focusSelector = state => state.windows.currentFocus;
+const stashSelector = state => state.windows.stash;
 
 export default {
-    stashSelector,
     collectionSelector,
-    focusSelector
+    focusSelector,
+    stashSelector
 }

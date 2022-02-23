@@ -1,46 +1,52 @@
 import types from "./types";
 
-const createWindowAction = (settings) => ({
-    type: types.CREATE_WINDOW,
+const collectionAddAction = (settings) => ({
+    type: types.COLLECTION_ADD,
     payload: settings
 });
 
-const focusWindowAction = (id) => ({
-    type: types.FOCUS_WINDOW,
+const collectionUpdateAction = (data) => ({
+    type: types.COLLECTION_UPDATE,
+    payload: data
+});
+
+const collectionRemoveAction = (id) => ({
+    type: types.COLLECTION_REMOVE,
     payload: id
 });
 
-const closeWindowAction = (id) => ({
-    type: types.CLOSE_WINDOW,
+const currentFocusSetAction = (id) => ({
+    type: types.CURRENT_FOCUS_SET,
     payload: id
 });
 
-const stashCollectionAddAction = (config) => ({
-    type: types.STASH_COLLECTION_ADD,
+const focusHistoryAddAction = (id) => ({
+    type: types.FOCUS_HISTORY_ADD,
+    payload: id
+});
+
+const focusHistoryRemoveAction = (id) => ({
+    type: types.FOCUS_HISTORY_REMOVE,
+    payload: id
+});
+
+const stashAddAction = (config) => ({
+    type: types.STASH_ADD,
     payload: config
 });
 
-const stashCollectionUpdateAction = (config) => ({
-    type: types.STASH_COLLECTION_UPDATE,
+const stashUpdateAction = (config) => ({
+    type: types.STASH_UPDATE,
     payload: config
-});
-
-const stashFocusAddAction = (id) => ({
-    type: types.STASH_FOCUS_ADD,
-    payload: id
-});
-
-const stashFocusRemoveAction = (id) => ({
-    type: types.STASH_FOCUS_REMOVE,
-    payload: id
 });
 
 export default {
-    createWindowAction,
-    focusWindowAction,
-    closeWindowAction,
-    stashCollectionAddAction,
-    stashCollectionUpdateAction,
-    stashFocusAddAction,
-    stashFocusRemoveAction
+    collectionAddAction,
+    currentFocusSetAction,
+    collectionRemoveAction,
+    stashAddAction,
+    stashUpdateAction,
+    focusHistoryAddAction,
+    focusHistoryRemoveAction,
+    collectionUpdateAction
 };

@@ -13,19 +13,25 @@
 
   &--expanded{
     border-radius: 0;
+    width: 100% !important;
+    height: 100% !important;
 
     #{$this}__head{
       border-radius: 0;
     }
   }
 
-  &--active{
+  &--focused{
     z-index: $windowZIndexActive;
     background-color: rgba($windowBg, .9);
 
     #{$this}__head{
       background-color: $contentHeadBg;
     }
+  }
+
+  &--minimized{
+    visibility: hidden;
   }
 
   &__holder{

@@ -1,6 +1,6 @@
 import "./Footer.scss";
 import Taskbar from "../Taskbar/Taskbar";
-import {handleContextMenu, FooterContextMenu, FOOTER_CONTEXT_ID} from "../ContextMenu/ContextMenu";
+import { handleContextMenu, FooterContextMenu, FOOTER_CONTEXT_ID } from "../ContextMenu/ContextMenu";
 import CurrencyConverter from "../CurrencyConverter/CurrencyConverter";
 
 const Footer = () => {
